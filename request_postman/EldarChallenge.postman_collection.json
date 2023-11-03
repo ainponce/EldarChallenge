@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "76d714d5-a643-4cfb-ad1a-87e6cd8f68fa",
+		"name": "EldarChallenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23965861",
+		"_collection_link": "https://universal-desert-54107.postman.co/workspace/Team-Workspace~ff7cef1d-87de-45b5-8363-e361a31038dd/collection/23965861-76d714d5-a643-4cfb-ad1a-87e6cd8f68fa?action=share&source=collection_link&creator=23965861"
+	},
+	"item": [
+		{
+			"name": "Consultar tasa",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/creditcard/tasa?marca=VISA&monto=10.0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"creditcard",
+						"tasa"
+					],
+					"query": [
+						{
+							"key": "marca",
+							"value": "VISA"
+						},
+						{
+							"key": "monto",
+							"value": "10.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Comparar tarjetas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/creditcard/compararTarjetas?numeroTarjeta1=123456&numeroTarjeta2=123456",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"creditcard",
+						"compararTarjetas"
+					],
+					"query": [
+						{
+							"key": "numeroTarjeta1",
+							"value": "123456"
+						},
+						{
+							"key": "numeroTarjeta2",
+							"value": "123456"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
