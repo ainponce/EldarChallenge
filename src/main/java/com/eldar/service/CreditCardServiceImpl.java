@@ -22,6 +22,11 @@ public class CreditCardServiceImpl implements CreditCardService{
     }
 
     @Override
+    public CreditCard saveCreditCard(Long numberCard, String cardType, String cardHolderName, Date expirationDate, Double tasa) {
+        return CreditCardRepository.save(new CreditCard(numberCard, cardType, cardHolderName, expirationDate, tasa));
+    }
+
+    @Override
     public Boolean isValidOperation(Double amount) {
         return amount < 1000.0;
     }

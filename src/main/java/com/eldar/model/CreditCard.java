@@ -5,20 +5,20 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "creditCard")
+@Table(name = "credit_card")
 public class CreditCard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long numberCard;
 
-    @Column(name = "cardType")
+    @Column(name = "card_type")
     private String cardType;
 
-    @Column(name = "cardHolderName")
+    @Column(name = "card_holder_name")
     private String cardHolderName;
 
-    @Column(name = "expirationDate")
+    @Column(name = "expiration_date")
     private Date expirationDate;
 
     @Column(name = "tasa")

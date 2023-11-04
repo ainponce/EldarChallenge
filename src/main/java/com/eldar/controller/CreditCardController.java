@@ -1,8 +1,14 @@
 package com.eldar.controller;
+import com.eldar.model.CreditCard;
 import com.eldar.service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/api/creditcard")
@@ -40,4 +46,31 @@ public class CreditCardController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/agregarTarjeta")
+    public ResponseEntity<CreditCard> saveCreditCard(@RequestBody CreditCard creditCardRequest) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date;
+        try {
+            date = formatter.parse(String.valueOf(creditCardRequest.getExpirationDate()));
+        } catch (ParseException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        CreditCard savedCreditCard = creditCardService.saveCreditCard(
+                creditCardRequest.getNumberCard(),
+                creditCardRequest.getCardType(),
+                creditCardRequest.getCardHolderName(),
+                date,
+                creditCardRequest.getTasa()
+        );
+
+        if (savedCreditCard != null) {
+            return ResponseEntity.ok(savedCreditCard);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }
