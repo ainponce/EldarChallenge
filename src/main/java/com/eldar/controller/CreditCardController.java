@@ -2,11 +2,9 @@ package com.eldar.controller;
 import com.eldar.model.CreditCard;
 import com.eldar.service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,10 +21,13 @@ public class CreditCardController {
 
     @GetMapping("/tasa")
     public ResponseEntity<Double> getTasaOperacion(
-            @RequestParam("marca") String cardType,
-            @RequestParam("monto") Double amount
+            @RequestParam("marca") String cardType
     ) {
-        Double tasa = creditCardService.getTasaByBrandAndAmount(cardType, amount);
+        CreditCard creditCard = new CreditCard();
+        creditCard.setCardType(cardType);
+
+        Double tasa = creditCard.getTasa();
+
         if (tasa != null) {
             return ResponseEntity.ok(tasa);
         } else {
@@ -50,19 +51,13 @@ public class CreditCardController {
     @PostMapping("/agregarTarjeta")
     public ResponseEntity<CreditCard> saveCreditCard(@RequestBody CreditCard creditCardRequest) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date;
-        try {
-            date = formatter.parse(String.valueOf(creditCardRequest.getExpirationDate()));
-        } catch (ParseException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        Date date = creditCardRequest.getExpirationDate();
 
         CreditCard savedCreditCard = creditCardService.saveCreditCard(
                 creditCardRequest.getNumberCard(),
                 creditCardRequest.getCardType(),
                 creditCardRequest.getCardHolderName(),
-                date,
-                creditCardRequest.getTasa()
+                date
         );
 
         if (savedCreditCard != null) {

@@ -21,9 +21,10 @@ public class CreditCardServiceImpl implements CreditCardService{
         return CreditCardRepository.findById(numberCard);
     }
 
+
     @Override
-    public CreditCard saveCreditCard(Long numberCard, String cardType, String cardHolderName, Date expirationDate, Double tasa) {
-        return CreditCardRepository.save(new CreditCard(numberCard, cardType, cardHolderName, expirationDate, tasa));
+    public CreditCard saveCreditCard(Long numberCard, String cardType, String cardHolderName, Date expirationDate) {
+        return CreditCardRepository.save(new CreditCard(numberCard, cardType, cardHolderName, expirationDate));
     }
 
     @Override
