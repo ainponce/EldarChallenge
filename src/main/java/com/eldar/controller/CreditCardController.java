@@ -1,9 +1,11 @@
 package com.eldar.controller;
+
 import com.eldar.model.CreditCard;
 import com.eldar.service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,6 +21,46 @@ public class CreditCardController {
         this.creditCardService = creditCardService;
     }
 
+    /*Valida que el monto sea menor 1000*/
+    @GetMapping("/validarOperacion")
+    public ResponseEntity<Boolean> isValidOperation(
+            @RequestParam("monto") Double amount
+    ) {
+        Boolean result = creditCardService.isValidOperation(amount);
+        if (result != null) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /*Se obtiene por ID no por numero de tarjeta*/
+    @GetMapping("/obtenerTarjeta")
+    public ResponseEntity<Object> getCreditCard(@RequestParam("numeroTarjeta") Long numberCard) {
+        Optional<CreditCard> optionalCreditCard = creditCardService.getCreditCardByNumber(numberCard);
+
+        if (optionalCreditCard.isPresent()) {
+            CreditCard creditCard = optionalCreditCard.get();
+            return ResponseEntity.ok(creditCard);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /*Valida que la expirationDate de la tarjeta no sea mayor a la fecha actual*/
+    @GetMapping("/validarTarjeta/{id}")
+    public ResponseEntity<Boolean> isValidCreditCard(
+            @RequestParam("fechaExpiracion") Date expirationDate
+    ) {
+        Boolean result = creditCardService.isValidCreditCard(expirationDate);
+        if (result != null) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /*Calcula la taza con las fechas de hoy*/
     @GetMapping("/tasa")
     public ResponseEntity<Double> getTasaOperacion(
             @RequestParam("marca") String cardType
@@ -35,6 +77,7 @@ public class CreditCardController {
         }
     }
 
+    /*Compara si 2 numeros de tarjeta son iguales*/
     @GetMapping("/compararTarjetas")
     public ResponseEntity<Boolean> compareCards(
             @RequestParam("numeroTarjeta1") Long numberCard1,
@@ -48,6 +91,7 @@ public class CreditCardController {
         }
     }
 
+    /*Podemos agregar tarjetas a la base de datos*/
     @PostMapping("/agregarTarjeta")
     public ResponseEntity<CreditCard> saveCreditCard(@RequestBody CreditCard creditCardRequest) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
