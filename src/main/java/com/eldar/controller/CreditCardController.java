@@ -5,6 +5,8 @@ import com.eldar.service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
 import java.util.Optional;
 
 import java.text.SimpleDateFormat;
@@ -49,16 +51,23 @@ public class CreditCardController {
 
     /*Valida que la expirationDate de la tarjeta no sea mayor a la fecha actual*/
     @GetMapping("/validarTarjeta/{id}")
-    public ResponseEntity<Boolean> isValidCreditCard(
-            @RequestParam("fechaExpiracion") Date expirationDate
-    ) {
-        Boolean result = creditCardService.isValidCreditCard(expirationDate);
-        if (result != null) {
-            return ResponseEntity.ok(result);
-        } else {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Boolean> isValidCreditCard(@RequestParam("fechaExpiracion") String fechaExpiracion) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date expirationDate = dateFormat.parse(fechaExpiracion);
+
+            Boolean result = creditCardService.isValidCreditCard(expirationDate);
+
+            if (result != null) {
+                return ResponseEntity.ok(result);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (ParseException e) {
+            return ResponseEntity.badRequest().build();
         }
     }
+
 
     /*Calcula la taza con las fechas de hoy*/
     @GetMapping("/tasa")

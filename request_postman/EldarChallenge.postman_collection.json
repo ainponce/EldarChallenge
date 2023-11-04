@@ -66,6 +66,88 @@
 			"response": []
 		},
 		{
+			"name": "Validar monto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/creditcard/validarOperacion?monto=1000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"creditcard",
+						"validarOperacion"
+					],
+					"query": [
+						{
+							"key": "monto",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar fecha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/creditcard/validarTarjeta/1?fechaExpiracion=2023-12-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"creditcard",
+						"validarTarjeta",
+						"1"
+					],
+					"query": [
+						{
+							"key": "fechaExpiracion",
+							"value": "2023-12-31"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer tarjeta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/creditcard/obtenerTarjeta?numeroTarjeta=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"creditcard",
+						"obtenerTarjeta"
+					],
+					"query": [
+						{
+							"key": "numeroTarjeta",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Crear tarjeta",
 			"request": {
 				"method": "POST",

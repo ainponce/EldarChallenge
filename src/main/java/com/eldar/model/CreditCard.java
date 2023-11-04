@@ -7,10 +7,12 @@ import java.util.Date;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 
+/* Creación de Clase, entidad y nombre de tabla*/
 @Entity
 @Table(name = "credit_card")
 public class CreditCard {
 
+    /* Generamos ID de tabla*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
