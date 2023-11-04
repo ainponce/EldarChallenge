@@ -43,24 +43,4 @@ public class CreditCardServiceImpl implements CreditCardService{
         return numberCard1.equals(numberCard2);
     }
 
-    @Override
-    public Double getTasaByBrandAndAmount(String cardType, Double amount) {
-        if ("VISA".equals(cardType)) {
-            String[] parts = String.valueOf(amount).split("\\.");
-            if (parts.length == 2) {
-                int year = Integer.parseInt(parts[0]);
-                int month = Integer.parseInt(parts[1]);
-                return (double) (year) / month;
-            }
-        } else if ("NARA".equals(cardType)) {
-            int dayOfMonth = amount.intValue();
-            return (double) (dayOfMonth) * 0.5;
-        } else if ("AMEX".equals(cardType)) {
-            int month = amount.intValue();
-            return (double) (month) * 0.1;
-        }
-
-        return null;
-    }
-
 }

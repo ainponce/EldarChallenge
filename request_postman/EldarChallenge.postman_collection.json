@@ -13,7 +13,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/creditcard/tasa?marca=VISA&monto=10.0",
+					"raw": "http://localhost:8080/api/creditcard/tasa?marca=VISA",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -28,10 +28,6 @@
 						{
 							"key": "marca",
 							"value": "VISA"
-						},
-						{
-							"key": "monto",
-							"value": "10.0"
 						}
 					]
 				}
@@ -64,6 +60,36 @@
 							"key": "numeroTarjeta2",
 							"value": "123456"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear tarjeta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"numberCard\": 123456777,\r\n    \"cardType\": \"VISA\",\r\n    \"cardHolderName\": \"Fernando Mazzini\",\r\n    \"expirationDate\": \"2024-02-02\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/creditcard/agregarTarjeta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"creditcard",
+						"agregarTarjeta"
 					]
 				}
 			},
